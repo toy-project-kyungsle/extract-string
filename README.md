@@ -83,8 +83,13 @@ IDONEI CONNECT WHALE
 ## 도움이 되었던 링크들
 
 [정적 라이브러리 사용](https://iam777.tistory.com/186)
+
 [정적 라이브러리?](https://wiki.kldp.org/HOWTO/html/Program-Library-HOWTO/static-libraries.html)
-[파일 디스크럽터란](https://code4human.tistory.com/123)
+
+[파일 디스크럽터란](https://code4human.tistory.com/123) 
+
 [window에서 현재 작업 경로 얻기](https://blog.naver.com/tipsware/221276143283)
+
 [window에서 make사용하기](https://ndb796.tistory.com/381)
+
 [window에 gcc 컴파일러 설치](https://ddmanager.tistory.com/152)
