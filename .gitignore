@@ -1,0 +1,4 @@
+*.o
+extract_string
+result.txt
+.DS_Store

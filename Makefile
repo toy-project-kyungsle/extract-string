@@ -2,9 +2,12 @@ CC		= gcc
 RM		= rm -f
 LIBC	= ar rc
 LIBR	= ranlib
-NAME	= libftprintf.a
-SRCS	= get_next_line.c get_next_line_utils.c
+NAME	= get_next_line.a
+SRCS	= main.c
 OBJS	= $(SRCS:.c=.o)
+GNL		= get_next_line.a
+PROGRAM = extract_string
+RFILE	= result.txt
 
 %.o:%.c
 	$(CC) -c $< -o $(<:.c=.o)
@@ -12,14 +15,15 @@ OBJS	= $(SRCS:.c=.o)
 $(NAME): $(OBJS)
 	$(LIBC) $(NAME) $(OBJS)
 	$(LIBR) $(NAME)
+	$(CC) -o $(PROGRAM) $(NAME)
 
 all: $(NAME)
 
 clean:
-	$(RM) ${OBJS}
+	$(RM) $(OBJS) $(RFILE)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(PROGRAM) $(RFILE)
 
 re: fclean all
 
