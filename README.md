@@ -1,44 +1,81 @@
-# Get Next Line
+## 돕고 삽니다!
 
-> Reading a line on a fd is way too tedious.
+> 개발자는 기술력을 가지고 프로그램을 만든다. 그 프로그램으로 누군가를 도울 때 뿌듯하다🙏🏻
 
+프로그래밍을 모르는 한 친구가 어려움에 빠져 있었습니다.
+그 친구를 위해 프로그램을 짜주었던 경험을 적어봅니다.
+특정 파일에서 텍스트를 추출하여, 새로운 텍스트 파일(.txt)로 만들어줍니다.
 
+블로그에 상세히 정리를 해두었습니다!
+[블로그 링크](https://velog.io/@keinn51/%EC%B9%9C%EA%B5%AC-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%A7%8C%EB%93%A4%EC%96%B4%EC%A3%BC%EA%B8%B0-with-C)
 
-### 1. 소개
+## 사용법
 
-```c
-int get_next_line(int fd);
+mac과 window 중 자신의 운영체제를 찾아서 들어갑니다.
+
+```shell
+cd mac
+make
+./extract_string
 ```
 
-#### **Turn in ﬁles**
-
-get_next_line.c, get_next_line_utils.c, get_next_line.h
-
-#### **Parameters**
-
-\#1. file descriptor for reading
-
-#### **Return value**
-
-the string I read
-
-#### **External functs.**
-
-read, malloc, free
-
-#### **Description**
-
-Write a function which returns a line read from a file descriptor, without the newline.
+그 결과 **result.txt** 에 추출한 결과가 나옵니다.
 
 
-### 2. 목표
+## 목표
 
-- GNL 함수를 loop 안에서 호출하면 fd의 텍스트를 EOF가 올 때 까지 한 번에 한 줄씩 읽을 수 있다.
-- GNL 함수를 처음 호출 했을 때 파일을 끝까지 읽었다 하더라도, 두 번째 호출했을 때는 두 번째 line부터 시작해야한다.
-- file로부터, redirection으로부터, stdin으로부터 읽었을 때 함수가 제대로 동작해야 한다.
-- 이 프로그램은 -D BUFFER_SIZE=xx 플래그를 붙여서 컴파일 해야 한다. 즉, read 함수는 표준입력으로 또는 파일로부터 읽어들이기 위해서 컴파일할 때 정의된 BUFFER_SIZE를 사용해야 한다.
-- BUFFER_SIZE가 1일 때도, 9999일 때도, 10000000 (1000만)일 때도 함수가 제대로 동작해야 한다.
-- Single Static Variable로 get_next_line 성공하기.
-- 다중 file descriptor를 관리 할 수 있는 함수로 만들기. 예를 들어 file descriptor 3, 4, 5를 읽을 수 있는 경우, get_next_line은 3에서 한 번, 4에서 한 번, 다시 3에 서 한 번, 5에서 한 번 호출할 수 있어야 한다. 각 descriptor의 reading thread를 잃지 않으면서 말이다.
+### 들어오는 데이터
+
+```shell
+# DAY 1
+***********************************************
+2303.1d shift started by : ABCD/EFGH/WWWW/ACXX    16/JAN/2023 09:00*
+****************************************
+
+1004 install and connect DOUGHTNUT
+IDONEI CONNECT DOUGHTNUT
+ +4eye check : ABCD/LLLL
+
+++++++++++++++++++++++
+2303.1d shift ended by : ABCD/EFGH/WWWW/ACXX       16/JAN/2023 09:00*
+++++++++++++++++++++++
+
+# DAY 2
+***********************************************
+2303.1d shift started by : ABCD/CCCC/WWWW/WIOQ     17/JAN/2023 09:00*
+****************************************
+
+1004 install and connect SANCHO
+IDONEI CONNECT SANCHO
+ +4eye check : ABCD/CCCC
+
+1004 install and connect WHALE
+IDONEI CONNECT WHALE
+ +4eye check : WIOQ/WWWW
+
+++++++++++++++++++++++
+2303.1d shift ended by : ABCD/CCCC/WWWW/WIOQ      17/JAN/2023 09:00*
+++++++++++++++++++++++
+....
+```
+
+로직은 아래와 같습니다.
+
+1. `shift started by`가 들어가는 문장을 찾는다. 이 문장에는 날짜 데이터가 들어가 있다.
+2. 1번의 문장에 따라 나오는, `4eye check` 가 들어간 문장을 찾는다.
+3. 2번의 문장 이전의 문장 중에서 `숫자로 시작하는 문장`을 찾는다.
 
 
+### 원하는 데이터
+
+```shell
+2303.1d shift started by : ABCD/EIDK/WWWW/WIOQ            16/JAN/2023 09:00*
+1004 install and connect DOUGHTNUT
++4eye check : ABCD/EIDK
+
+2303.1d shift started by : ABCD/EIDK/WWWW/WIOQ           16/JAN/2023 09:00*
+1004 install and connect DOUGHTNUT
++4eye check : ABCD/EIDK
+1004 install and connect WHALE
++4eye check : WIOQ/WWWW
+```
