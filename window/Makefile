@@ -2,12 +2,11 @@ CC		= gcc
 RM		= rm -f
 LIBC	= ar rc
 LIBR	= ranlib
-NAME	= get_next_line.a
-SRCS	= main.c
+NAME	= extract_string.a
+SRCS	= main.c get_next_line.c get_next_line_utils.c
 OBJS	= $(SRCS:.c=.o)
-GNL		= get_next_line.a
-PROGRAM = extract_string.exe
-RFILE	= extract_string_result/result.txt
+PROGRAM	= extract_string
+RESULT	= result.txt
 
 %.o:%.c
 	$(CC) -c $< -o $(<:.c=.o)
@@ -20,10 +19,10 @@ $(NAME): $(OBJS)
 all: $(NAME)
 
 clean:
-	$(RM) $(OBJS) $(RFILE)
+	$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(PROGRAM) $(RFILE)
+	$(RM) $(NAME) $(PROGRAM) $(RESULT)
 
 re: fclean all
 
