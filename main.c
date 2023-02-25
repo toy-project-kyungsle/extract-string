@@ -1,4 +1,5 @@
 #include "main.h"
+#include <sys/param.h>
 
 int get_start_idx(const char *haystack, const char *needle)
 {
@@ -17,15 +18,36 @@ int get_start_idx(const char *haystack, const char *needle)
     return (-1);
 }
 
-int main()
+char *own_strjoin(char const *s1, char const *s2)
+{
+    char *result;
+    char *temp;
+
+    temp = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+    if (!temp)
+        return (0);
+    result = temp;
+    while (*s1)
+        *(temp++) = *(s1++);
+    while (*s2)
+        *(temp++) = *(s2++);
+    *temp = '\0';
+    return (result);
+}
+
+int main(int argc, char **argv)
 {
     char **all_string = (char **)malloc(1024);
     char **result = (char **)malloc(1024);
     char *line;
     int fd;
     int i = 0;
+    char resolved_path[MAXPATHLEN];
 
-    if (!(fd = open("text.txt", O_RDONLY))) // 1
+    realpath(argv[0], resolved_path);
+    printf("resolved_path: %s\n", own_strjoin(resolved_path, "_result/text.txt"));
+
+    if (!(fd = open(own_strjoin(resolved_path, "_result/text.txt"), O_RDONLY))) // 1
     {
         printf("\nError in open");
         return (0);
@@ -75,7 +97,7 @@ int main()
 
     int fd2;
 
-    fd2 = open("result.txt", O_WRONLY | O_CREAT, 0644);
+    fd2 = open(own_strjoin(resolved_path, "_result/result.txt"), O_WRONLY | O_CREAT, 0644);
     while (result[k])
     {
         write(fd2, result[k], strlen(result[k]));

@@ -7,7 +7,7 @@ SRCS	= main.c
 OBJS	= $(SRCS:.c=.o)
 GNL		= get_next_line.a
 PROGRAM = extract_string
-RFILE	= result.txt
+RFILE	= extract_string_result/result.txt
 
 %.o:%.c
 	$(CC) -c $< -o $(<:.c=.o)
