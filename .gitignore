@@ -1,5 +1,5 @@
 .vscode
 *.o
-extract_string
+extract_string*
 result.txt
 .DS_Store

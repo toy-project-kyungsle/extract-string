@@ -6,7 +6,7 @@ NAME	= get_next_line.a
 SRCS	= main.c
 OBJS	= $(SRCS:.c=.o)
 GNL		= get_next_line.a
-PROGRAM = extract_string
+PROGRAM = extract_string.exe
 RFILE	= extract_string_result/result.txt
 
 %.o:%.c
