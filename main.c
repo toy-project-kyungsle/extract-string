@@ -75,20 +75,14 @@ int main()
 
     int fd2;
 
-    if (0 < (fd2 = open("result.txt", O_WRONLY | O_CREAT | O_EXCL, 0644)))
+    fd2 = open("result.txt", O_WRONLY | O_CREAT, 0644);
+    while (result[k])
     {
-        while (result[k])
-        {
-            write(fd2, result[k], strlen(result[k]));
-            write(fd2, "\n", 1);
-            k++;
-        }
-        close(fd2);
+        write(fd2, result[k], strlen(result[k]));
+        write(fd2, "\n", 1);
+        k++;
     }
-    else
-    {
-        printf("파일이 이미 존재합니다.\n");
-    }
+    close(fd2);
 
     k = 0;
 
